@@ -1,37 +1,39 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block body %}
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<strong>Gerenciar perfis</strong>
+		<strong>Perfil de Usuário</strong>
 	</div>
 	<div class="panel-body">
-		<form>
-			<div class="form-group">
-				<label for="id">Código:</label>
-				<input type="text" class="form-control" id="id" value="{{ perfil.id }}">
+		<div class="media" style="padding: 10px">
+			<div class="media-left col-xs-3">
+				<img src="{% static 'img/img_avatar.png' %}" class="media-object" style="width:130px">
 			</div>
-			<div class="form-group">
-				<label for="nome">Nome:</label>
-				<input type="text" class="form-control" id="nome" value="{{ perfil.nome }}">
+			<div class="media-body col-xs-9">
+				<h3 class="media-heading">{{ perfil.nome }}</h3>
+				<br>
+				<p>{{ perfil.email }}</p>
+				<p>{{ perfil.telefone }}</p>
+				<p>{{ perfil.nome_empresa }}</p>
 			</div>
-			<div class="form-group">
-				<label for="email">Email:</label>
-				<input type="text" class="form-control" id="email" value="{{ perfil.email }}">
+		</div>
+		
+		<div class="panel-buttons">
+			<div class="pull-left">
+				<a href="{% url 'listar' %}" class="btn btn-danger">Retornar</a>
 			</div>
-			<div class="form-group">
-				<label for="nome_empresa">Empresa:</label>
-				<input type="text" class="form-control" id="nome_empresa" value="{{ perfil.nome_empresa }}">
-			</div>
-			<div class="panel-buttons">
-				<div class="pull-left">
-					<a href="{% url 'listar' %}" class="btn btn-danger">Retornar</a>
-				</div>
+			{% if is_contato %}
 				<div class="pull-right">
-					<button type="submit" class="btn btn-primary">Salvar Alterações</button>
+					<div class="well well-sm">Vocês estão conectados</div>
 				</div>
-			</div>
-		</form>
+			{% else %}
+				<div class="pull-right">
+					<a href="{% url 'convidar' perfil.id %}" class="btn btn-primary">Convidar</a>
+				</div>
+			{% endif %}
+		</div>
 	</div>
 </div>
 {% endblock %}
