@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pr-br">
+<head>
+	<meta charset="UTF-8">
+	<title>ConnectedIn</title>
+</head>
+<body>
+	<h2>Gerenciar Perfil</h2>
+	<tt>
+	<table border="1">
+		<tr>
+			<th align="left">Id</th>
+			<td align="left">{{ perfil.id }}</td>
+		</tr>
+		<tr>
+			<th align="left">Nome</th>
+			<td align="left">{{ perfil.nome }}</td>
+		</tr>
+		<tr>
+			<th align="left">Email</th>
+			<td align="left">{{ perfil.email }}</td>
+		</tr>
+		<tr>
+			<th align="left">Telefone</th>
+			<td align="left">{{ perfil.telefone }}</td>
+		</tr>
+		<tr>
+			<th align="left">Empresa</th>
+			<td align="left">{{ perfil.nome_empresa }}</td>
+		</tr>
+	</table>
+	<br>
+	<a href="{% url 'listar' %}">[Voltar]</a>
+	</tt>
+</body>
+</html>
