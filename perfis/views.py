@@ -19,4 +19,4 @@ def convidar(request, perfil_id):
 	return redirect('listar')
 
 def get_perfil_logado(request):
-    return Perfil.objects.get(id=1)
+	return Perfil.objects.get(id=1)
