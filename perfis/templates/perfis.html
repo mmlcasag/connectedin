@@ -1,41 +1,72 @@
-<!DOCTYPE html>
-<html lang="pr-br">
-<head>
-	<meta charset="UTF-8">
-	<title>ConnectedIn</title>
-</head>
-<body>
-	<h2>Gerenciar Perfis</h2>
-	<tt>
-	{% if perfis %}
-	<table border="1">
-		<tr>
-			<th align="right">Id</th>
-			<th align="left">Nome</th>
-			<th align="left">Email</th>
-			<th align="left">Telefone</th>
-			<th align="left">Empresa</th>
-			<th align="left">Ações</th>
-		</tr>
-		{% for perfil in perfis %}
-		<tr>
-			<td align="right">{{ perfil.id }}</td>
-			<td align="left">{{ perfil.nome }}</td>
-			<td align="left">{{ perfil.email }}</td>
-			<td align="left">{{ perfil.telefone }}</td>
-			<td align="left">{{ perfil.nome_empresa }}</td>
-			<td align="left">
-				<a href="{% url 'exibir' perfil.id %}">[Visualizar]</a>
-				<a href="{% url 'convidar' perfil.id %}">[Convidar]</a>
-			</td>
-		</tr>
-		{% endfor %}
-	</table>
-	{% else %}
-	<p align="center">Nenhum perfil encontrado</p>
-	{% endif %}
-	<br>
-	<a href="{% url 'index' %}">[Página inicial]</a>
-	</tt>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block body %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<strong>Gerenciar perfis</strong>
+	</div>
+	<div class="panel-body">
+		{% if perfis %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Nome</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for perfil in perfis %}
+						<tr>
+							<td>{{ perfil.id }}</td>
+							<td>{{ perfil.nome }}</td>
+							<td>
+								<a href="{% url 'exibir' perfil.id %}" alt="Editar"><span class="glyphicon glyphicon-th-list"></span></a>
+								<a href="{% url 'convidar' perfil.id %}" alt="Convidar"><span class="glyphicon glyphicon-user"></span></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<p>Nenhum perfil encontrado</p>
+		{% endif %}
+	</div>
+</div>
+
+{% with qtd_convites=perfil_logado.convites_recebidos.count %}
+{% if qtd_convites %}
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a data-toggle="collapse" href="#collapse1">
+					<strong>Convites aguardando aprovação ({{qtd_convites}})</strong>
+				</a>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+				<ul class="list-group" style="padding: 10px">
+				{% for convite in perfil_logado.convites_recebidos.all %}
+					<li class="list-group-item">
+						{{ convite.solicitante.nome }}
+						<a href="#" class="pull-right">Aceitar</a>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Nenhum convite pendente</strong>
+		</div>
+	</div>
+{% endif %}
+{% endwith %}
+
+<div class="panel-buttons">
+	<div class="pull-left">
+		<a href="{% url 'index' %}" class="btn btn-danger">Página inicial</a>
+	</div>
+</div>
+{% endblock %}

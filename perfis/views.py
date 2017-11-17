@@ -6,11 +6,12 @@ def index(request):
 
 def listar(request):
 	perfis = Perfil.objects.all()
-	return render(request, 'perfis.html', { "perfis" : perfis })
+	perfil_logado = get_perfil_logado(request)
+	return render(request, 'perfis.html', { 'perfis' : perfis, 'perfil_logado' : perfil_logado })
 
 def exibir(request, perfil_id):
 	perfil = Perfil.objects.get(id = perfil_id)
-	return render(request, 'perfil.html', { "perfil" : perfil })
+	return render(request, 'perfil.html', { 'perfil' : perfil })
 
 def convidar(request, perfil_id):
 	perfil_convidar = Perfil.objects.get(id = perfil_id)
