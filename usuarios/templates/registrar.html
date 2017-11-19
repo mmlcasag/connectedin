@@ -4,23 +4,25 @@
 	<form action="{% url 'registrar' %}" method="post" class="form-signin">
 		{% csrf_token %}
 		<h2 class="form-signin-heading">Crie sua conta</h2>
-
+		
 		{% if form.errors %}
     	<div class="alert alert-danger">
-    		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     		{{form.non_field_errors}}
     	</div>
     	{% endif %}
-
+    	
     	<input type="text" class="form-control" name="email" value="{{form.email.value}}" placeholder="Email *" required>
-		<input type="password" class="form-control" name="senha" value="{{form.senha.value}}" class="form-control" placeholder="Senha *" required>
+		<input type="password" class="form-control" name="senha" value="{{form.senha.value}}" placeholder="Senha *" required>
 
-		<input type="text" class="form-control" name="nome" value="{{form.nome.value}}" class="form-control" placeholder="Nome *" required>
-		<input type="text" class="form-control" name="telefone" value="{{form.telefone.value}}" class="form-control" placeholder="Telefone">
-		<input type="text" class="form-control" name="nome_empresa" value="{{form.nome_empresa.value}}" class="form-control" placeholder="Empresa">
+		<input type="text" class="form-control" name="nome" value="{{form.nome.value}}" placeholder="Nome *" required>
+		<input type="text" class="form-control" name="telefone" value="{{form.telefone.value}}" placeholder="Telefone">
+		<input type="text" class="form-control" name="nome_empresa" value="{{form.nome_empresa.value}}" placeholder="Empresa">
 		
-		<hr>
-
+		<br>
 		<button type="submit" class="btn btn-primary">Registrar</button>
+		<br>
+		<br>
+		
+		<a href="{% url 'login' %}">Voltar para a tela de login</a>
 	</form>
 {% endblock %}
